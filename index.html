@@ -6,8 +6,6 @@
     :root {
       --primary: #e63946;
       --secondary: #ff758f;
-      --bg1: #fff0f3;
-      --bg2: #ffd6e0;
       --text-dark: #4a040f;
     }
 
@@ -16,8 +14,7 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background: radial-gradient(circle at top, #ffe5ec, transparent 60%),
-                  linear-gradient(135deg, var(--bg1), var(--bg2));
+      background: #000;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -25,7 +22,28 @@
       font-family: 'Poppins', sans-serif;
     }
 
-    /* Decorative background elements */
+    /* ===== Background couple image ===== */
+    .bg-image {
+      position: fixed;
+      inset: 0;
+      background: url('us.jpg') center / cover no-repeat;
+      filter: blur(8px) brightness(0.85);
+      transform: scale(1.05);
+      z-index: -3;
+    }
+
+    .bg-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(255,240,243,0.85),
+        rgba(255,214,224,0.85)
+      );
+    }
+
+    /* Decorative ambient petals */
     .bg-petal {
       position: absolute;
       width: 120px;
@@ -35,12 +53,13 @@
       opacity: 0.12;
       filter: blur(2px);
       transform: rotate(25deg);
+      z-index: -1;
     }
     .bg-petal.one { top: 8%; left: -40px; }
     .bg-petal.two { bottom: 12%; right: -50px; transform: rotate(-35deg); }
     .bg-petal.three { top: 40%; right: -30px; width: 90px; height: 90px; }
 
-    /* Center card */
+    /* ===== Center card ===== */
     .app {
       width: 100%;
       max-width: 380px;
@@ -49,13 +68,14 @@
       background: rgba(255,255,255,0.92);
       backdrop-filter: blur(14px);
       border-radius: 28px;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.18);
       padding: 22px 20px 24px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
       overflow: hidden;
+      z-index: 1;
     }
 
     header { text-align: center; }
@@ -82,7 +102,7 @@
       overflow: hidden;
     }
 
-    /* Persistent rose */
+    /* ===== Persistent rose ===== */
     .rose-wrapper {
       position: absolute;
       top: 18px;
@@ -189,7 +209,8 @@
       color: #888;
     }
   </style></head>
-<body><div class="bg-petal one"></div>
+<body><div class="bg-image"></div>
+<div class="bg-petal one"></div>
 <div class="bg-petal two"></div>
 <div class="bg-petal three"></div><div class="app">
   <header>
