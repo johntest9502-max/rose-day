@@ -105,10 +105,11 @@
     /* ===== Persistent rose ===== */
     .rose-wrapper {
       position: absolute;
-      top: 10px;
+      top: 12px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 3;
+      z-index: 1; /* keep rose below text */
+      pointer-events: none;
     }
 
     .rose-container {
@@ -163,16 +164,16 @@
     .grow .leaf { transform: scale(1); }
 
     .slide {
-      padding: 220px 12px 12px;
       position: absolute;
       inset: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-end;
-      padding: 200px 12px 12px;
+      padding: 260px 14px 14px; /* guaranteed clearance below rose */
       text-align: center;
       transition: opacity 0.6s ease, transform 0.6s ease;
+      z-index: 2; /* text always above rose */
     }
 
     .slide.hidden {
