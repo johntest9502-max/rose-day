@@ -145,23 +145,30 @@
     }
   </style></head>
 <body>  <div class="hearts" id="hearts"></div>  <div class="card">
-    <h1>Happy Rose Day 🌹</h1>
-    <p class="subtitle">For the woman I choose, every single day</p><div class="rose-container" id="roseBox">
+    <h1>Happy Rose Day, Meenakshi 🌹</h1>
+    <p class="subtitle">For my Minnie, my favorite first and my forever</p><div class="rose-container" id="roseBox">
   <div class="rose"></div>
   <div class="stem"></div>
   <div class="leaf"></div>
 </div>
 
-<button onclick="giveRose()">Give Rose 💖</button>
+<button onclick="giveRose()">Give Rose to Minnie 💖</button>
 
 <div class="message" id="message">
-  This rose is for you, my love ❤️
+  Minnie ❤️
   <span>
-    Every petal carries my promise — today, tomorrow, and forever.
+    From our first hello to all the forever plans waiting ahead,
+    you have filled my life with warmth, laughter, and love.
+    <br/><br/>
+    This rose is a small symbol of something much bigger —
+    my promise to choose you, care for you, and love you
+    today, tomorrow, and always.
+    <br/><br/>
+    Firsts to forever 🌹💍
   </span>
 </div>
 
-<footer>Made with ❤️ just for you</footer>
+<footer>Made with ❤️ for Meenakshi</footer>
 
   </div>  <!-- Optional background music (uncomment if you want music) -->  <!--
   <audio id="music" autoplay loop>
@@ -187,5 +194,38 @@
         setTimeout(() => span.remove(), 6000);
       }
     }
+      setTimeout(showForever, 4500);
+    }
+
+    function showForever() {
+      const screen = document.createElement('div');
+      screen.style.position = 'fixed';
+      screen.style.top = '0';
+      screen.style.left = '0';
+      screen.style.width = '100%';
+      screen.style.height = '100%';
+      screen.style.background = 'linear-gradient(135deg, #ffe5ec, #ffb3c6)';
+      screen.style.display = 'flex';
+      screen.style.alignItems = 'center';
+      screen.style.justifyContent = 'center';
+      screen.style.flexDirection = 'column';
+      screen.style.zIndex = '9999';
+      screen.style.animation = 'fadeIn 1.2s ease';
+
+      screen.innerHTML = `
+        <h2 style="color:#c9184a;font-size:26px;margin-bottom:12px;">Minnie 💍</h2>
+        <p style="color:#6a040f;font-size:18px;text-align:center;max-width:300px;line-height:1.6;">
+          This rose doesn’t end here.<br/>
+          It comes with my forever — my heart, my home, my always.
+        </p>
+        <div style="font-size:40px;margin-top:18px;">🌹❤️</div>
+      `;
+
+      document.body.appendChild(screen);
+    }
+
+    const style = document.createElement('style');
+    style.innerHTML = `@keyframes fadeIn { from { opacity:0 } to { opacity:1 } }`;
+    document.head.appendChild(style);
   </script></body>
 </html>
