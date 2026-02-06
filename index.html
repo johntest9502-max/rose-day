@@ -11,49 +11,60 @@
       --text-dark: #4a040f;
     }
 
-    * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       min-height: 100vh;
-      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      background: radial-gradient(circle at top, #ffe5ec, transparent 60%),
+                  linear-gradient(135deg, var(--bg1), var(--bg2));
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      font-family: 'Poppins', sans-serif;
     }
 
+    /* Decorative background elements */
+    .bg-petal {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle at top left, #ffb3c6, #ff758f);
+      border-radius: 60% 60% 40% 40%;
+      opacity: 0.12;
+      filter: blur(2px);
+      transform: rotate(25deg);
+    }
+    .bg-petal.one { top: 8%; left: -40px; }
+    .bg-petal.two { bottom: 12%; right: -50px; transform: rotate(-35deg); }
+    .bg-petal.three { top: 40%; right: -30px; width: 90px; height: 90px; }
+
+    /* Center card */
     .app {
       width: 100%;
-      max-width: 420px;
-      height: 100vh;
-      max-height: 820px;
+      max-width: 380px;
+      min-height: 620px;
+      max-height: 90vh;
       background: rgba(255,255,255,0.92);
       backdrop-filter: blur(14px);
-      border-radius: 30px;
-      box-shadow: 0 30px 90px rgba(0,0,0,0.18);
-      padding: 22px 20px 26px;
+      border-radius: 28px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+      padding: 22px 20px 24px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
-      animation: appIn 0.9s ease;
-    }
-
-    @keyframes appIn {
-      from { transform: translateY(30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+      overflow: hidden;
     }
 
     header { text-align: center; }
-
     header h1 {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 600;
       color: var(--primary);
       margin: 0 0 4px;
     }
-
     header p {
       font-size: 13px;
       color: #777;
@@ -65,16 +76,16 @@
     .stage {
       flex: 1;
       position: relative;
-      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
     }
 
-    /* 🌹 ROSE – now persistent across slides */
+    /* Persistent rose */
     .rose-wrapper {
       position: absolute;
-      top: 40px;
+      top: 18px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 2;
@@ -82,53 +93,52 @@
 
     .rose-container {
       position: relative;
-      height: 190px;
-      width: 140px;
-      filter: drop-shadow(0 18px 25px rgba(230,57,70,0.35));
+      height: 160px;
+      width: 120px;
+      filter: drop-shadow(0 14px 20px rgba(230,57,70,0.3));
     }
 
     .petal {
       position: absolute;
-      width: 62px;
-      height: 62px;
+      width: 52px;
+      height: 52px;
       background: radial-gradient(circle at top left, #ffb3c6, #c9184a);
       border-radius: 60% 60% 45% 45%;
       opacity: 0;
-      transform: scale(0.3) rotate(0deg);
-      transition: transform 1s ease, opacity 0.8s ease;
+      transform: scale(0.3);
+      transition: transform 0.9s ease, opacity 0.6s ease;
     }
-
-    .petal.p1 { top: 24px; left: 40px; transform-origin: bottom center; }
-    .petal.p2 { top: 34px; left: 18px; transform-origin: bottom right; }
-    .petal.p3 { top: 34px; left: 62px; transform-origin: bottom left; }
-    .petal.p4 { top: 10px; left: 40px; transform-origin: bottom center; }
+    .petal.p1 { top: 20px; left: 34px; }
+    .petal.p2 { top: 30px; left: 16px; }
+    .petal.p3 { top: 30px; left: 52px; }
+    .petal.p4 { top: 8px; left: 34px; }
 
     .stem {
       position: absolute;
-      width: 6px;
-      height: 120px;
+      width: 5px;
+      height: 100px;
       background: linear-gradient(#40916c, #2d6a4f);
-      left: 67px;
-      top: 74px;
+      left: 57px;
+      top: 60px;
       transform: scaleY(0);
       transform-origin: top;
-      transition: transform 0.9s ease 0.6s;
+      transition: transform 0.8s ease 0.5s;
       border-radius: 3px;
     }
 
     .leaf {
       position: absolute;
-      width: 38px;
-      height: 20px;
+      width: 30px;
+      height: 16px;
       background: #52b788;
       border-radius: 50% 0 50% 0;
-      top: 122px;
-      left: 72px;
+      top: 98px;
+      left: 60px;
       transform: scale(0);
-      transition: transform 0.6s ease 1s;
+      transition: transform 0.5s ease 0.9s;
     }
 
-    .grow .petal { opacity: 1; transform: scale(1) rotate(var(--r)); }
+    .grow .petal { opacity: 1; transform: scale(1); }
     .grow .stem { transform: scaleY(1); }
     .grow .leaf { transform: scale(1); }
 
@@ -139,27 +149,25 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-end;
+      padding: 200px 12px 12px;
       text-align: center;
-      padding: 220px 10px 10px;
-      transition: opacity 0.8s ease, transform 0.8s ease;
-      z-index: 1;
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
     .slide.hidden {
       opacity: 0;
       pointer-events: none;
-      transform: scale(0.96);
+      transform: translateY(10px);
     }
 
     .message {
-      font-size: 14px;
+      font-size: 13px;
       line-height: 1.6;
       color: var(--text-dark);
-      max-width: 300px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
-    .message .hand {
+    .hand {
       font-family: 'Playfair Display', serif;
       font-style: italic;
     }
@@ -168,37 +176,40 @@
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: #fff;
       border: none;
-      padding: 14px 26px;
-      font-size: 15px;
+      padding: 12px 24px;
+      font-size: 14px;
       border-radius: 999px;
       cursor: pointer;
-      box-shadow: 0 12px 30px rgba(230,57,70,0.4);
+      box-shadow: 0 10px 24px rgba(230,57,70,0.35);
     }
 
-    footer { text-align: center; font-size: 11px; color: #888; }
+    footer {
+      text-align: center;
+      font-size: 11px;
+      color: #888;
+    }
   </style></head>
-<body><div class="app">
+<body><div class="bg-petal one"></div>
+<div class="bg-petal two"></div>
+<div class="bg-petal three"></div><div class="app">
   <header>
     <h1>Happy Rose Day, Meenakshi 🌹</h1>
     <p>For my Minnie — firsts to forever</p>
-  </header>  <div class="stage"><!-- Persistent Rose -->
-<div class="rose-wrapper">
+  </header>  <div class="stage"><div class="rose-wrapper">
   <div class="rose-container" id="roseBox">
-    <div class="petal p1" style="--r:-10deg"></div>
-    <div class="petal p2" style="--r:-30deg"></div>
-    <div class="petal p3" style="--r:30deg"></div>
-    <div class="petal p4" style="--r:0deg"></div>
+    <div class="petal p1"></div>
+    <div class="petal p2"></div>
+    <div class="petal p3"></div>
+    <div class="petal p4"></div>
     <div class="stem"></div>
     <div class="leaf"></div>
   </div>
 </div>
 
-<!-- Slide 1 -->
 <div class="slide" id="slide1">
   <button class="cta" onclick="giveRose()">Give Rose to Minnie 💖</button>
 </div>
 
-<!-- Slide 2 -->
 <div class="slide hidden" id="slide2">
   <div class="message">
     Minnie ❤️<br/><br/>
@@ -211,20 +222,19 @@
   <button class="cta" onclick="showForever()">Go to Forever 💍</button>
 </div>
 
-<!-- Slide 3 -->
 <div class="slide hidden" id="slide3">
-  <div class="message" style="font-size:16px;">
+  <div class="message" style="font-size:15px;">
     Minnie 💍<br/><br/>
     This rose stays with us — today, tomorrow, and forever.
   </div>
-  <div style="font-size:42px;">🌹❤️</div>
+  <div style="font-size:38px;">🌹❤️</div>
 </div>
 
   </div>  <footer>Made with ❤️ for Meenakshi</footer>
 </div><script>
   function giveRose() {
     document.getElementById('roseBox').classList.add('grow');
-    setTimeout(() => transitionTo('slide2'), 1200);
+    setTimeout(() => transitionTo('slide2'), 1000);
   }
 
   function showForever() { transitionTo('slide3'); }
