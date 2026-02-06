@@ -166,6 +166,8 @@
     <br/><br/>
     Firsts to forever 🌹💍
   </span>
+  <br/>
+  <button id="nextBtn" style="margin-top:16px;background:#ff758f;">Go to Forever 💍</button>
 </div>
 
 <footer>Made with ❤️ for Meenakshi</footer>
@@ -183,8 +185,14 @@
         roseBox.classList.add('show');
         message.style.display = 'block';
         createHearts();
-        setTimeout(showForever, 4500);
       }
+    }
+
+    document.addEventListener('click', function(e) {
+      if (e.target && e.target.id === 'nextBtn') {
+        showForever();
+      }
+    });
     }
 
     function createHearts() {
