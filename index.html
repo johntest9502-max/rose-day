@@ -176,9 +176,15 @@
   </audio>
   -->  <script>
     function giveRose() {
-      document.getElementById('roseBox').classList.add('show');
-      document.getElementById('message').style.display = 'block';
-      createHearts();
+      const roseBox = document.getElementById('roseBox');
+      const message = document.getElementById('message');
+
+      if (!roseBox.classList.contains('show')) {
+        roseBox.classList.add('show');
+        message.style.display = 'block';
+        createHearts();
+        setTimeout(showForever, 4500);
+      }
     }
 
     function createHearts() {
@@ -193,8 +199,6 @@
         hearts.appendChild(span);
         setTimeout(() => span.remove(), 6000);
       }
-    }
-      setTimeout(showForever, 4500);
     }
 
     function showForever() {
