@@ -40,14 +40,6 @@
       animation: appIn 0.9s ease;
     }
 
-    .app::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top, rgba(255,200,210,0.25), transparent 60%);
-      pointer-events: none;
-    }
-
     @keyframes appIn {
       from { transform: translateY(30px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
@@ -72,37 +64,26 @@
 
     .stage {
       flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       position: relative;
       overflow: hidden;
-    }
-
-    .slide {
-      position: absolute;
-      inset: 0;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 10px;
-      transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
-    .slide.hidden {
-      opacity: 0;
-      pointer-events: none;
-      transform: scale(0.95);
+    /* 🌹 ROSE – now persistent across slides */
+    .rose-wrapper {
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
     }
 
-    /* 🌹 ROSE */
     .rose-container {
       position: relative;
       height: 190px;
       width: 140px;
-      margin-bottom: 14px;
       filter: drop-shadow(0 18px 25px rgba(230,57,70,0.35));
     }
 
@@ -115,23 +96,6 @@
       opacity: 0;
       transform: scale(0.3) rotate(0deg);
       transition: transform 1s ease, opacity 0.8s ease;
-      overflow: hidden;
-    }
-
-    .petal::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
-      transform: translateX(-100%);
-    }
-
-    .grow .petal::after {
-      animation: shimmer 2.4s ease forwards;
-    }
-
-    @keyframes shimmer {
-      to { transform: translateX(120%); }
     }
 
     .petal.p1 { top: 24px; left: 40px; transform-origin: bottom center; }
@@ -168,43 +132,36 @@
     .grow .stem { transform: scaleY(1); }
     .grow .leaf { transform: scale(1); }
 
-    .haze {
+    .slide {
       position: absolute;
-      inset: -20px;
-      background: radial-gradient(circle at center, rgba(255,200,210,0.25), transparent 65%);
-      opacity: 0;
-      transition: opacity 1.2s ease;
-      pointer-events: none;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      text-align: center;
+      padding: 220px 10px 10px;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      z-index: 1;
     }
 
-    .grow + .haze { opacity: 1; }
+    .slide.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.96);
+    }
 
     .message {
       font-size: 14px;
       line-height: 1.6;
       color: var(--text-dark);
       max-width: 300px;
-      margin: 0 auto 16px;
+      margin-bottom: 16px;
     }
 
     .message .hand {
       font-family: 'Playfair Display', serif;
       font-style: italic;
-      font-size: 15px;
-    }
-
-    .photo-frame {
-      width: 160px;
-      height: 200px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, #ffe5ec, #fff);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.18);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      color: #999;
-      margin-bottom: 14px;
     }
 
     .cta {
@@ -216,10 +173,7 @@
       border-radius: 999px;
       cursor: pointer;
       box-shadow: 0 12px 30px rgba(230,57,70,0.4);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
-
-    .cta:hover { transform: translateY(-2px); box-shadow: 0 18px 40px rgba(230,57,70,0.5); }
 
     footer { text-align: center; font-size: 11px; color: #888; }
   </style></head>
@@ -227,8 +181,8 @@
   <header>
     <h1>Happy Rose Day, Meenakshi 🌹</h1>
     <p>For my Minnie — firsts to forever</p>
-  </header>  <div class="stage"><!-- Slide 1 -->
-<div class="slide" id="slide1">
+  </header>  <div class="stage"><!-- Persistent Rose -->
+<div class="rose-wrapper">
   <div class="rose-container" id="roseBox">
     <div class="petal p1" style="--r:-10deg"></div>
     <div class="petal p2" style="--r:-30deg"></div>
@@ -237,7 +191,10 @@
     <div class="stem"></div>
     <div class="leaf"></div>
   </div>
-  <div class="haze"></div>
+</div>
+
+<!-- Slide 1 -->
+<div class="slide" id="slide1">
   <button class="cta" onclick="giveRose()">Give Rose to Minnie 💖</button>
 </div>
 
@@ -256,11 +213,9 @@
 
 <!-- Slide 3 -->
 <div class="slide hidden" id="slide3">
-  <div class="photo-frame">Your photo together 💕</div>
   <div class="message" style="font-size:16px;">
     Minnie 💍<br/><br/>
-    This rose blooms into my forever —<br/>
-    my heart, my home, my always.
+    This rose stays with us — today, tomorrow, and forever.
   </div>
   <div style="font-size:42px;">🌹❤️</div>
 </div>
@@ -269,7 +224,7 @@
 </div><script>
   function giveRose() {
     document.getElementById('roseBox').classList.add('grow');
-    setTimeout(() => transitionTo('slide2'), 1400);
+    setTimeout(() => transitionTo('slide2'), 1200);
   }
 
   function showForever() { transitionTo('slide3'); }
