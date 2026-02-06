@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Rose Day, Minnie 🌹</title>  <!-- Fonts -->  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">  <style>
+  <title>Happy Rose Day, Minnie 🌹</title>  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,500&display=swap" rel="stylesheet">  <style>
     :root {
       --primary: #e63946;
       --secondary: #ff758f;
@@ -11,10 +11,7 @@
       --text-dark: #4a040f;
     }
 
-    * {
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+    * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
     body {
       margin: 0;
@@ -31,15 +28,24 @@
       max-width: 420px;
       height: 100vh;
       max-height: 820px;
-      background: rgba(255,255,255,0.9);
-      backdrop-filter: blur(10px);
-      border-radius: 24px;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      border-radius: 30px;
+      box-shadow: 0 30px 90px rgba(0,0,0,0.18);
       padding: 22px 20px 26px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      position: relative;
       animation: appIn 0.9s ease;
+    }
+
+    .app::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(255,200,210,0.25), transparent 60%);
+      pointer-events: none;
     }
 
     @keyframes appIn {
@@ -47,21 +53,21 @@
       to { transform: translateY(0); opacity: 1; }
     }
 
-    header {
-      text-align: center;
-    }
+    header { text-align: center; }
 
     header h1 {
       font-size: 22px;
       font-weight: 600;
       color: var(--primary);
-      margin: 0 0 6px;
+      margin: 0 0 4px;
     }
 
     header p {
-      font-size: 14px;
-      color: #666;
+      font-size: 13px;
+      color: #777;
       margin: 0;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
     }
 
     .stage {
@@ -80,56 +86,98 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 10px;
       text-align: center;
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      padding: 10px;
+      transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
     .slide.hidden {
       opacity: 0;
       pointer-events: none;
-      transform: scale(0.96);
+      transform: scale(0.95);
     }
 
+    /* 🌹 ROSE */
     .rose-container {
       position: relative;
-      height: 160px;
-      margin-bottom: 18px;
+      height: 190px;
+      width: 140px;
+      margin-bottom: 14px;
+      filter: drop-shadow(0 18px 25px rgba(230,57,70,0.35));
     }
 
-    .rose {
-      width: 60px;
-      height: 60px;
-      background: radial-gradient(circle at center, #ff4d6d, #c9184a);
-      border-radius: 50%;
-      margin: 0 auto;
-      transform: scale(0);
-      transition: transform 0.8s ease;
+    .petal {
+      position: absolute;
+      width: 62px;
+      height: 62px;
+      background: radial-gradient(circle at top left, #ffb3c6, #c9184a);
+      border-radius: 60% 60% 45% 45%;
+      opacity: 0;
+      transform: scale(0.3) rotate(0deg);
+      transition: transform 1s ease, opacity 0.8s ease;
+      overflow: hidden;
     }
+
+    .petal::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+      transform: translateX(-100%);
+    }
+
+    .grow .petal::after {
+      animation: shimmer 2.4s ease forwards;
+    }
+
+    @keyframes shimmer {
+      to { transform: translateX(120%); }
+    }
+
+    .petal.p1 { top: 24px; left: 40px; transform-origin: bottom center; }
+    .petal.p2 { top: 34px; left: 18px; transform-origin: bottom right; }
+    .petal.p3 { top: 34px; left: 62px; transform-origin: bottom left; }
+    .petal.p4 { top: 10px; left: 40px; transform-origin: bottom center; }
 
     .stem {
-      width: 5px;
-      height: 110px;
-      background: #2d6a4f;
-      margin: 0 auto;
+      position: absolute;
+      width: 6px;
+      height: 120px;
+      background: linear-gradient(#40916c, #2d6a4f);
+      left: 67px;
+      top: 74px;
       transform: scaleY(0);
       transform-origin: top;
-      transition: transform 0.8s ease 0.3s;
+      transition: transform 0.9s ease 0.6s;
+      border-radius: 3px;
     }
 
     .leaf {
-      width: 30px;
-      height: 16px;
-      background: #40916c;
+      position: absolute;
+      width: 38px;
+      height: 20px;
+      background: #52b788;
       border-radius: 50% 0 50% 0;
-      margin: -70px 0 0 52%;
+      top: 122px;
+      left: 72px;
       transform: scale(0);
-      transition: transform 0.6s ease 0.8s;
+      transition: transform 0.6s ease 1s;
     }
 
-    .grow .rose { transform: scale(1); }
+    .grow .petal { opacity: 1; transform: scale(1) rotate(var(--r)); }
     .grow .stem { transform: scaleY(1); }
     .grow .leaf { transform: scale(1); }
+
+    .haze {
+      position: absolute;
+      inset: -20px;
+      background: radial-gradient(circle at center, rgba(255,200,210,0.25), transparent 65%);
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      pointer-events: none;
+    }
+
+    .grow + .haze { opacity: 1; }
 
     .message {
       font-size: 14px;
@@ -137,6 +185,26 @@
       color: var(--text-dark);
       max-width: 300px;
       margin: 0 auto 16px;
+    }
+
+    .message .hand {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 15px;
+    }
+
+    .photo-frame {
+      width: 160px;
+      height: 200px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #ffe5ec, #fff);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 14px;
     }
 
     .cta {
@@ -151,40 +219,25 @@
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
-    .cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 18px 40px rgba(230,57,70,0.5);
-    }
+    .cta:hover { transform: translateY(-2px); box-shadow: 0 18px 40px rgba(230,57,70,0.5); }
 
-    .hearts span {
-      position: absolute;
-      color: rgba(255,80,120,0.6);
-      animation: float 6s linear infinite;
-      user-select: none;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0); opacity: 0; }
-      10% { opacity: 1; }
-      100% { transform: translateY(-700px); opacity: 0; }
-    }
-
-    footer {
-      text-align: center;
-      font-size: 11px;
-      color: #888;
-    }
+    footer { text-align: center; font-size: 11px; color: #888; }
   </style></head>
-<body><div class="hearts" id="hearts"></div><div class="app">  <header>
+<body><div class="app">
+  <header>
     <h1>Happy Rose Day, Meenakshi 🌹</h1>
     <p>For my Minnie — firsts to forever</p>
   </header>  <div class="stage"><!-- Slide 1 -->
 <div class="slide" id="slide1">
   <div class="rose-container" id="roseBox">
-    <div class="rose"></div>
+    <div class="petal p1" style="--r:-10deg"></div>
+    <div class="petal p2" style="--r:-30deg"></div>
+    <div class="petal p3" style="--r:30deg"></div>
+    <div class="petal p4" style="--r:0deg"></div>
     <div class="stem"></div>
     <div class="leaf"></div>
   </div>
+  <div class="haze"></div>
   <button class="cta" onclick="giveRose()">Give Rose to Minnie 💖</button>
 </div>
 
@@ -194,7 +247,7 @@
     Minnie ❤️<br/><br/>
     From our first hello to all the forever plans waiting ahead, you have filled my life with warmth, laughter, and love.
     <br/><br/>
-    This rose carries my promise — to choose you, care for you, and love you today, tomorrow, and always.
+    <span class="hand">This rose carries my promise — to choose you, care for you, and love you today, tomorrow, and always.</span>
     <br/><br/>
     <strong>Firsts to forever 🌹💍</strong>
   </div>
@@ -203,10 +256,11 @@
 
 <!-- Slide 3 -->
 <div class="slide hidden" id="slide3">
+  <div class="photo-frame">Your photo together 💕</div>
   <div class="message" style="font-size:16px;">
     Minnie 💍<br/><br/>
-    This rose doesn’t end here.<br/>
-    It comes with my forever — my heart, my home, my always.
+    This rose blooms into my forever —<br/>
+    my heart, my home, my always.
   </div>
   <div style="font-size:42px;">🌹❤️</div>
 </div>
@@ -215,33 +269,14 @@
 </div><script>
   function giveRose() {
     document.getElementById('roseBox').classList.add('grow');
-    transitionTo('slide2');
-    createHearts();
+    setTimeout(() => transitionTo('slide2'), 1400);
   }
 
-  function showForever() {
-    transitionTo('slide3');
-  }
+  function showForever() { transitionTo('slide3'); }
 
   function transitionTo(id) {
-    document.querySelectorAll('.slide').forEach(slide => {
-      slide.classList.add('hidden');
-    });
-    const next = document.getElementById(id);
-    next.classList.remove('hidden');
-  }
-
-  function createHearts() {
-    const hearts = document.getElementById('hearts');
-    for (let i = 0; i < 16; i++) {
-      const span = document.createElement('span');
-      span.innerHTML = '❤';
-      span.style.left = Math.random() * 100 + 'vw';
-      span.style.bottom = '-20px';
-      span.style.fontSize = Math.random() * 16 + 14 + 'px';
-      hearts.appendChild(span);
-      setTimeout(() => span.remove(), 6000);
-    }
+    document.querySelectorAll('.slide').forEach(s => s.classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
   }
 </script></body>
 </html>
