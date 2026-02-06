@@ -27,9 +27,14 @@
       position: fixed;
       inset: 0;
       background: url('us.jpg') center / cover no-repeat;
-      filter: blur(8px) brightness(0.85);
+      filter: blur(3px) brightness(0.9);
       transform: scale(1.05);
       z-index: -3;
+      transition: filter 1s ease;
+    }
+
+    .bg-image.forever {
+      filter: blur(1px) brightness(1);
     }
 
     .bg-image::after {
@@ -62,9 +67,9 @@
     /* ===== Center card ===== */
     .app {
       width: 100%;
-      max-width: 380px;
-      min-height: 620px;
-      max-height: 90vh;
+      max-width: 330px;
+      min-height: 560px;
+      max-height: 85vh;
       background: rgba(255,255,255,0.92);
       backdrop-filter: blur(14px);
       border-radius: 28px;
@@ -76,6 +81,11 @@
       position: relative;
       overflow: hidden;
       z-index: 1;
+      transition: background 0.6s ease;
+    }
+
+    .app.soft {
+      background: rgba(255,255,255,0.82);
     }
 
     header { text-align: center; }
@@ -208,8 +218,22 @@
       font-size: 11px;
       color: #888;
     }
+      
+    .vignette {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at center, rgba(0,0,0,0) 50%, rgba(0,0,0,0.28) 100%);
+      z-index: -2;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+
+    .vignette.show {
+      opacity: 1;
+    }
   </style></head>
-<body><div class="bg-image"></div>
+<body><!-- Cinematic vignette --><div class="vignette"></div><div class="bg-image"></div>
 <div class="bg-petal one"></div>
 <div class="bg-petal two"></div>
 <div class="bg-petal three"></div><div class="app">
@@ -255,10 +279,16 @@
 </div><script>
   function giveRose() {
     document.getElementById('roseBox').classList.add('grow');
+    document.querySelector('.app').classList.add('soft');
+    document.querySelector('.vignette').classList.add('show');
     setTimeout(() => transitionTo('slide2'), 1000);
   }
 
-  function showForever() { transitionTo('slide3'); }
+  function showForever() {
+    document.querySelector('.bg-image').classList.add('forever');
+    document.querySelector('.app').classList.add('soft');
+    transitionTo('slide3');
+  }
 
   function transitionTo(id) {
     document.querySelectorAll('.slide').forEach(s => s.classList.add('hidden'));
